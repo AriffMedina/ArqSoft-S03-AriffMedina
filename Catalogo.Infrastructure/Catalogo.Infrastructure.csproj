@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+<<<<<<< HEAD
+  <ItemGroup>
+    <ProjectReference Include="..\Catalogo.Domain\Catalogo.Domain.csproj" />
+  </ItemGroup>
+
+=======
+>>>>>>> 914942b95b3315df7814b51489d712caa66b6de1
+</Project>

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+<<<<<<< HEAD
+  <ItemGroup>
+    <ProjectReference Include="..\Catalogo.Application\Catalogo.Application.csproj" />
+    <ProjectReference Include="..\Catalogo.Infrastructure\Catalogo.Infrastructure.csproj" />
+  </ItemGroup>
+
+=======
+>>>>>>> 914942b95b3315df7814b51489d712caa66b6de1
+</Project>
