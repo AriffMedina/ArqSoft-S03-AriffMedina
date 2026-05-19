@@ -1,8 +1,8 @@
-using Catalogo.Presentation.Models;
+using CatalogoApp.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace Catalogo.Presentation.Controllers
+namespace CatalogoApp.Presentation.Controllers
 {
     public class HomeController : Controller
     {

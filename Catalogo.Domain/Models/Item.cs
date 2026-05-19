@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CatalogoApp.Domain.Models
+﻿namespace CatalogoApp.Domain.Models
 {
     public class Item
     {
