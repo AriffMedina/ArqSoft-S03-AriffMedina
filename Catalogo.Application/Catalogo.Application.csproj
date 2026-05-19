@@ -6,14 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
   <ItemGroup>
     <ProjectReference Include="..\Catalogo.Domain\Catalogo.Domain.csproj" />
   </ItemGroup>
 
-=======
->>>>>>> 914942b95b3315df7814b51489d712caa66b6de1
-=======
->>>>>>> 914942b95b3315df7814b51489d712caa66b6de1
+
 </Project>

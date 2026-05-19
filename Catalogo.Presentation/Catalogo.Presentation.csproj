@@ -6,15 +6,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
   <ItemGroup>
     <ProjectReference Include="..\Catalogo.Application\Catalogo.Application.csproj" />
     <ProjectReference Include="..\Catalogo.Infrastructure\Catalogo.Infrastructure.csproj" />
   </ItemGroup>
 
-=======
->>>>>>> 914942b95b3315df7814b51489d712caa66b6de1
-=======
->>>>>>> 914942b95b3315df7814b51489d712caa66b6de1
+
 </Project>
