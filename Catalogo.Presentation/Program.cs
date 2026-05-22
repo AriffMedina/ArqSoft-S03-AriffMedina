@@ -21,6 +21,23 @@ new JsonItemRepository(jsonPath)
 // Registrar el servicio de Application
 
 builder.Services.AddScoped<ItemService>();
+
+var jsonPathUsuarios = Path.Combine(
+    builder.Environment.ContentRootPath, "Data", "users.json");
+
+builder.Services.AddSingleton<IUserRepository>(
+    new JsonUserRepository(jsonPathUsuarios));
+
+builder.Services.AddScoped<UserService>();
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // sesión expira en 30 min
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.AddAuthorization();
 builder.Services.AddControllersWithViews();
 
@@ -38,7 +55,9 @@ if (!app.Environment.IsDevelopment())
 
 }
 
-app.UseHttpsRedirection(); app.UseRouting();
+app.UseHttpsRedirection(); app.UseStaticFiles(); app.UseRouting();
+
+app.UseSession();
 
 app.UseAuthorization();
 

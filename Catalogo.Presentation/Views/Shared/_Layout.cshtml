@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Catalogo.Presentation</title>
+    <title>@ViewData["Title"] - Catalogo de Videojuegos</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -21,11 +21,42 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-controller="Catalogo" asp-action="Index">Videojuegos</a>
                         </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        @if (Context.Session.GetString("UsuarioNombre") != null)
+                        {
+                            <li class="nav-item me-2">
+                                <span class="navbar-text text-dark fw-semibold">
+                                    👤 @Context.Session.GetString("UsuarioNombre")
+                                </span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-outline-secondary btn-sm"
+                                       asp-controller="Auth" asp-action="Logout">
+                                    Cerrar sesión
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item me-2">
+                                <a class="btn btn-outline-primary btn-sm"
+                                       asp-controller="Auth" asp-action="Login">
+                                    Iniciar sesión
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-primary btn-sm"
+                                       asp-controller="Auth" asp-action="Register">
+                                    Registrarse
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -39,7 +70,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2026 - Catalogo.Presentation - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2026 - Catálogo de Videojuegos - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
