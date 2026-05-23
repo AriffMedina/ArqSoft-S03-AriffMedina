@@ -19,14 +19,16 @@ namespace CatalogoApp.Presentation.Controllers
         }
 
         // Lista con filtro opcional por género
-        public IActionResult Index(string? genero)
+        public IActionResult Index(string? raza, string? pelaje, string? temperamento)
         {
-            var items = string.IsNullOrEmpty(genero)
-                ? _service.ObtenerTodos()
-                : _service.ObtenerPorGenero(genero);
+            var items = _service.ObtenerTodos();
 
-            ViewBag.Generos = _service.ObtenerGeneros();
-            ViewBag.GeneroActual = genero;
+            if (!string.IsNullOrEmpty(raza))
+                items = items.Where(i => i.Raza == raza).ToList();
+            if (!string.IsNullOrEmpty(pelaje))
+                items = items.Where(i => i.Pelaje == pelaje).ToList();
+            if (!string.IsNullOrEmpty(temperamento))
+                items = items.Where(i => i.Temperamento == temperamento).ToList();
 
             return View(items);
         }

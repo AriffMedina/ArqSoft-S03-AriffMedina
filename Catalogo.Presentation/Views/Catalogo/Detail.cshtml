@@ -1,116 +1,121 @@
+
 @using CatalogoApp.Domain.Models
 @model Item
 
 @{
-    ViewData["Title"] = Model.Titulo;
-    var reviews       = ViewBag.Reviews  as List<Review> ?? new();
-    var avgRating     = (double)(ViewBag.AverageRating ?? 0.0);
-    var isLoggedIn    = Context.Session.GetString("UsuarioNombre") != null;
+    ViewData["Title"] = Model.Nombre;
+    var reviews   = ViewBag.Reviews  as List<Review> ?? new List<Review>();
+    var avg       = (double)(ViewBag.AverageRating ?? 0.0);
+    var loggedIn  = Context.Session.GetString("UsuarioNombre") != null;
 }
+<head>
+    <link rel="stylesheet" href="~/css/detail.css" />   
+</head>
+<div class="container py-4" style="max-width:820px;">
 
-<div class="row mt-4">
-    <div class="col-md-8 offset-md-2">
+    <a asp-controller="Catalogo" asp-action="Index" class="btn-back">← Volver al catálogo</a>
 
-        
-        <h2>@Model.Titulo</h2>
-        <p class="text-muted">@Model.Genero &bull; @Model.Ano</p>
-        @* Info del item *@
-        <h2>@Model.Titulo</h2>
-        <p><strong>Género:</strong> @Model.Genero</p>
-        <p><strong>Consola:</strong> @Model.Consola</p>
-        <p><strong>Año:</strong> @Model.Ano</p>
-        <p><strong>Descripción:</strong> @Model.Descripcion</p>
-        
-        <div class="mb-4">
-            @if (reviews.Count > 0)
-            {
-                <span class="fs-5 fw-semibold">
-                    @for (int i = 1; i <= 5; i++)
-                    {
-                        <span style="color: @(i <= Math.Round(avgRating) ? "#f5a623" : "#ccc")">★</span>
-                    }
-                    @avgRating / 5
-                </span>
-                <span class="text-muted ms-2">(@reviews.Count review@(reviews.Count == 1 ? "" : "s"))</span>
-            }
-            else
-            {
-                <span class="text-muted">No reviews yet. Be the first!</span>
-            }
+    
+    <div class="detail-hero">
+        <div class="cat-avatar">🐱</div>
+        <div>
+            <h1 class="cat-info-title">@Model.Nombre</h1>
+            <div class="mb-2">
+                <span class="cat-tag">@Model.Raza</span>
+                <span class="cat-tag">@Model.Pelaje</span>
+                <span class="cat-tag">@Model.Temperamento</span>
+            </div>
+            <p style="color:var(--muted);line-height:1.7;max-width:440px;">@Model.Descripcion</p>
+
+            
+            <div class="mt-2">
+                @if (reviews.Count > 0)
+                {
+                    <span class="avg-stars">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <span class="@(i <= Math.Round(avg) ? "star-on" : "star-off")">★</span>
+                        }
+                    </span>
+                    <span style="font-size:.9rem;color:var(--muted);margin-left:.4rem;">
+                        @avg / 5 &nbsp;·&nbsp; @reviews.Count review@(reviews.Count == 1 ? "" : "s")
+                    </span>
+                }
+                else
+                {
+                    <span style="font-size:.9rem;color:var(--muted);">Sin reviews todavía</span>
+                }
+            </div>
         </div>
+    </div>
 
-        <hr />
-
-        
-        @if (isLoggedIn)
-        {
+    
+    @if (loggedIn)
+    {
+        <div class="review-form-card">
+            <h2 class="section-title">Deja tu review</h2>
             @if (TempData["ReviewError"] != null)
             {
-                <div class="alert alert-danger">@TempData["ReviewError"]</div>
+                <div class="alert alert-danger py-2">@TempData["ReviewError"]</div>
             }
-
-            <h5>Leave a Review</h5>
-            <form method="post" asp-controller="Review" asp-action="Add" class="mb-4">
+            <form method="post" asp-controller="Review" asp-action="Add">
                 <input type="hidden" name="itemId" value="@Model.Id" />
-
                 <div class="mb-3">
-                    <label class="form-label">Rating</label>
-                    <div class="d-flex gap-2">
+                    <label class="form-label" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);">Rating</label>
+                    <div class="d-flex gap-3 align-items-center">
                         @for (int i = 1; i <= 5; i++)
                         {
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio"
-                                       name="rating" id="star@i" value="@i" required
-                                       @(i == 5 ? "checked" : "") />
-                                <label class="form-check-label" for="star@i">@i ★</label>
+                                <input class="form-check-input" type="radio" name="rating"
+                                       id="s@(i)" value="@i" required @(i == 5 ? "checked" : "") />
+                                <label class="form-check-label" for="s@(i)" style="font-size:1.4rem;cursor:pointer;">★</label>
                             </div>
                         }
                     </div>
                 </div>
-
                 <div class="mb-3">
-                    <label class="form-label">Comment</label>
+                    <label class="form-label" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);">Comentario</label>
                     <textarea name="comment" class="form-control" rows="3"
-                              placeholder="Share your thoughts..." required></textarea>
+                              placeholder="¿Qué te parece este gato?" required></textarea>
                 </div>
-
-                <button type="submit" class="btn btn-primary">Post Review</button>
+                <button type="submit" class="btn-post">Publicar review</button>
             </form>
-        }
-        else
+        </div>
+    }
+    else
+    {
+        <div class="review-form-card" style="text-align:center;padding:2rem;">
+            <span style="font-size:2rem;display:block;margin-bottom:.8rem;">🔐</span>
+            <p style="color:var(--muted);margin-bottom:1rem;">Inicia sesión para dejar una review.</p>
+            <a asp-controller="Auth" asp-action="Login" class="btn-post" style="text-decoration:none;border-radius:10px;display:inline-block;">Iniciar sesión</a>
+        </div>
+    }
+
+    
+    <h2 class="section-title">Reviews (@reviews.Count)</h2>
+
+    @if (reviews.Count == 0)
+    {
+        <p style="color:var(--muted);text-align:center;padding:2rem 0;">🐾 Sé el primero en opinar sobre @Model.Nombre</p>
+    }
+    else
+    {
+        @foreach (var r in reviews)
         {
-            <div class="alert alert-info">
-                <a asp-controller="Auth" asp-action="Login">Log in</a> to leave a review.
+            <div class="review-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="review-user">@r.UserName</span>
+                    <span>
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <span style="color:@(i <= r.Rating ? "#f5a623" : "#ddd")">★</span>
+                        }
+                    </span>
+                </div>
+                <p class="review-text">@r.Comment</p>
+                <span class="review-date">@r.CreatedAt.ToString("MMM dd, yyyy")</span>
             </div>
         }
+    }
 
-        
-        <h5>Reviews</h5>
-        @if (reviews.Count == 0)
-        {
-            <p class="text-muted">No reviews yet.</p>
-        }
-        else
-        {
-            @foreach (var review in reviews)
-            {
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-1">
-                            <strong>@review.UserName</strong>
-                            <span>
-                                @for (int i = 1; i <= 5; i++)
-                                {
-                                    <span style="color: @(i <= review.Rating ? "#f5a623" : "#ccc")">★</span>
-                                }
-                            </span>
-                        </div>
-                        <p class="mb-1">@review.Comment</p>
-                        <small class="text-muted">@review.CreatedAt.ToString("MMM dd, yyyy")</small>
-                    </div>
-                </div>
-            }
-        }
-
-    </div>
 </div>

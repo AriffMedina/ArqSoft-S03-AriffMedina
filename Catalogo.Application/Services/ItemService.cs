@@ -1,8 +1,5 @@
 ﻿using CatalogoApp.Domain.Interfaces;
 using CatalogoApp.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CatalogoApp.Application.Services
 {
@@ -10,51 +7,48 @@ namespace CatalogoApp.Application.Services
     {
         private readonly IItemRepository _repo;
 
-        // El servicio recibe el repositorio por constructor
-        // No sabe si es JSON, SQL, memoria, etc.
         public ItemService(IItemRepository repo)
         {
             _repo = repo;
         }
 
-        public List<Item> ObtenerTodos()
-        {
-            return _repo.ObtenerTodos();
-        }
+        public List<Item> ObtenerTodos() => _repo.ObtenerTodos();
 
         public Item? GetById(int id) =>
-    _repo.ObtenerTodos().FirstOrDefault(i => i.Id == id);
-        public Item? ObtenerPorId(int id)
-        {
-            return _repo.ObtenerPorId(id);
-        }
+            _repo.ObtenerTodos().FirstOrDefault(i => i.Id == id);
 
-        public void Agregar(Item item)
-        {
-            // Aquí podrías agregar validaciones de negocio
-            // Por ejemplo: if (string.IsNullOrEmpty(item.Titulo)) throw...
-            _repo.Agregar(item);
-        }
+        public Item? ObtenerPorId(int id) => _repo.ObtenerPorId(id);
 
-        public void Eliminar(int id)
-        {
-            _repo.Eliminar(id);
-        }
+        public void Agregar(Item item) => _repo.Agregar(item);
 
-        // Método útil para el filtro por categoría/género
-        public List<Item> ObtenerPorGenero(string genero)
-        {
-            return _repo.ObtenerTodos()
-                        .Where(i => i.Genero == genero)
-                        .ToList();
-        }
+        public void Eliminar(int id) => _repo.Eliminar(id);
 
-        public List<string> ObtenerGeneros()
-        {
-            return _repo.ObtenerTodos()
-                        .Select(i => i.Genero)
-                        .Distinct()
-                        .ToList();
-        }
+        // ── Filtros por categorías de gatos ──────────────────────────
+
+        public List<Item> ObtenerPorRaza(string raza) =>
+            _repo.ObtenerTodos()
+                 .Where(i => i.Raza == raza)
+                 .ToList();
+
+        public List<Item> ObtenerPorPelaje(string pelaje) =>
+            _repo.ObtenerTodos()
+                 .Where(i => i.Pelaje == pelaje)
+                 .ToList();
+
+        public List<Item> ObtenerPorTemperamento(string temperamento) =>
+            _repo.ObtenerTodos()
+                 .Where(i => i.Temperamento == temperamento)
+                 .ToList();
+
+        // ── Listas para poblar los dropdowns ─────────────────────────
+
+        public List<string> ObtenerRazas() =>
+            _repo.ObtenerTodos().Select(i => i.Raza).Distinct().OrderBy(r => r).ToList();
+
+        public List<string> ObtenerPelajes() =>
+            _repo.ObtenerTodos().Select(i => i.Pelaje).Distinct().OrderBy(p => p).ToList();
+
+        public List<string> ObtenerTemperamentos() =>
+            _repo.ObtenerTodos().Select(i => i.Temperamento).Distinct().OrderBy(t => t).ToList();
     }
 }

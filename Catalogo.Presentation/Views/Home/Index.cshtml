@@ -1,8 +1,66 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@{
+    ViewData["Title"] = "Inicio";
 }
+<head>
+    <link rel="stylesheet" href="~/css/HomeIndex.css" />
+</head>
+<section class="hero">
+    <span class="paw-bg" style="top:-2rem;right:-2rem">🐾</span>
+    <span class="paw-bg" style="bottom:2rem;left:-1rem;font-size:6rem">🐾</span>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <div class="container">
+        <div class="row align-items-center gy-5">
+            <div class="col-lg-6" style="animation: fadeInUp .7s ease both;">
+                <p class="hero-eyebrow">🐾 El refugio digital felino</p>
+                <h1 class="hero-title">
+                    Encuentra tu<br><em>compañero</em><br>perfecto
+                </h1>
+                <p class="hero-sub">
+                    Explora nuestro catálogo de gatos: filtra por raza, pelaje y temperamento
+                    para dar con el minino ideal para ti.
+                </p>
+                <a asp-controller="Catalogo" asp-action="Index" class="btn-catalogo">
+                    Ver catálogo de gatos <span>→</span>
+                </a>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="hero-emoji">🐱</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="features">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="section-label">¿Por qué nosotros?</span>
+            <div class="divider-paw">🐾 🐾 🐾</div>
+        </div>
+        <div class="row g-4 text-center">
+            <div class="col-md-4">
+                <span class="feature-icon">🔍</span>
+                <p class="feature-title">Filtros precisos</p>
+                <p class="feature-desc">Filtra por raza, tipo de pelaje y temperamento para encontrar exactamente lo que buscas.</p>
+            </div>
+            <div class="col-md-4">
+                <span class="feature-icon">⭐</span>
+                <p class="feature-title">Reviews reales</p>
+                <p class="feature-desc">Lee opiniones de otros usuarios y deja la tuya con calificación de 1 a 5 estrellas.</p>
+            </div>
+            <div class="col-md-4">
+                <span class="feature-icon">👤</span>
+                <p class="feature-title">Comunidad felina</p>
+                <p class="feature-desc">Regístrate, inicia sesión y sé parte de nuestra comunidad de amantes de los gatos.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    @@keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(24px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+</style>

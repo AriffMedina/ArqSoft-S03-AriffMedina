@@ -15,12 +15,9 @@ namespace CatalogoApp.Application.Services
             _repo = repo;
         }
 
-        /// <summary>
-        /// Registra un nuevo usuario. Devuelve un mensaje de error o null si fue exitoso.
-        /// </summary>
         public string? Registrar(string nombreUsuario, string email, string password)
         {
-            // Validaciones de negocio
+            
             if (string.IsNullOrWhiteSpace(nombreUsuario) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
                 return "Todos los campos son obligatorios.";
 
@@ -34,7 +31,6 @@ namespace CatalogoApp.Application.Services
                 return "Ese nombre de usuario ya está en uso.";
 
             // Hashear la contraseña con BCrypt antes de guardar
-            // NUNCA guardar texto plano
             var hash = BCrypt.Net.BCrypt.HashPassword(password);
 
             var usuario = new Usuario
@@ -46,12 +42,9 @@ namespace CatalogoApp.Application.Services
             };
 
             _repo.Agregar(usuario);
-            return null; // null = sin error = éxito
+            return null; 
         }
 
-        /// <summary>
-        /// Verifica credenciales. Devuelve el Usuario si es válido, null si no.
-        /// </summary>
         public Usuario? ValidarLogin(string email, string password)
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))

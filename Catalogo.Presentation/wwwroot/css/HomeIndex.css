@@ -1,0 +1,154 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+    --cream: #fdf6ee;
+    --caramel: #c8894a;
+    --dark: #1e1a16;
+    --muted: #7a6a58;
+    --card-bg: #fffaf4;
+}
+
+body {
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--dark);
+}
+
+.hero {
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 4rem 0;
+}
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 60% 50% at 80% 50%, rgba(200,137,74,.18) 0%, transparent 70%), radial-gradient(ellipse 40% 60% at 10% 80%, rgba(200,137,74,.10) 0%, transparent 60%);
+        pointer-events: none;
+    }
+
+.paw-bg {
+    position: absolute;
+    font-size: 9rem;
+    opacity: .04;
+    user-select: none;
+    pointer-events: none;
+}
+
+.hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: .8rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--caramel);
+    margin-bottom: 1.2rem;
+}
+
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--dark);
+    margin-bottom: 1.5rem;
+}
+
+    .hero-title em {
+        font-style: italic;
+        color: var(--caramel);
+    }
+
+.hero-sub {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+}
+
+.btn-catalogo {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    background: var(--caramel);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: .9rem 2.2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: background .2s, transform .2s, box-shadow .2s;
+    box-shadow: 0 4px 20px rgba(200,137,74,.35);
+}
+
+    .btn-catalogo:hover {
+        background: #b07840;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 28px rgba(200,137,74,.45);
+        color: #fff;
+    }
+
+.hero-emoji {
+    font-size: clamp(6rem, 14vw, 11rem);
+    line-height: 1;
+    animation: float 4s ease-in-out infinite;
+    filter: drop-shadow(0 12px 24px rgba(200,137,74,.2));
+}
+
+@@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-14px);
+    }
+}
+
+.features {
+    padding: 5rem 0 6rem;
+    background: var(--card-bg);
+    border-top: 1px solid rgba(200,137,74,.12);
+    border-bottom: 1px solid rgba(200,137,74,.12);
+}
+
+.feature-icon {
+    font-size: 2.4rem;
+    margin-bottom: .8rem;
+    display: block;
+}
+
+.feature-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: .4rem;
+}
+
+.feature-desc {
+    font-size: .92rem;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.section-label {
+    font-size: .75rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--caramel);
+    font-weight: 500;
+}
+
+.divider-paw {
+    text-align: center;
+    font-size: 1.5rem;
+    opacity: .3;
+    margin: 1.5rem 0;
+}

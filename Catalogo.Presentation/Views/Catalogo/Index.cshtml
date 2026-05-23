@@ -1,29 +1,106 @@
-﻿@model List<CatalogoApp.Domain.Models.Item>
- 
-<h1>Catálogo de Videojuegos</h1>
- 
-<!-- Filtro por Genero -->
-<div>
-    <a asp-action="Index">Todos</a>
-    @foreach (var gen in ViewBag.Generos as List<string>)
+﻿
+@using CatalogoApp.Domain.Models
+@model List<Item>
+
+@{
+    ViewData["Title"] = "Catálogo de Gatos";
+    var razas         = Model.Select(i => i.Raza).Distinct().OrderBy(r => r).ToList();
+    var pelajes       = Model.Select(i => i.Pelaje).Distinct().OrderBy(p => p).ToList();
+    var temperamentos = Model.Select(i => i.Temperamento).Distinct().OrderBy(t => t).ToList();
+
+    var filtroRaza   = Context.Request.Query["raza"].ToString();
+    var filtroPelaje = Context.Request.Query["pelaje"].ToString();
+    var filtroTemp   = Context.Request.Query["temperamento"].ToString();
+
+    var filtrados = Model.AsEnumerable();
+    if (!string.IsNullOrEmpty(filtroRaza))   filtrados = filtrados.Where(i => i.Raza == filtroRaza);
+    if (!string.IsNullOrEmpty(filtroPelaje)) filtrados = filtrados.Where(i => i.Pelaje == filtroPelaje);
+    if (!string.IsNullOrEmpty(filtroTemp))   filtrados = filtrados.Where(i => i.Temperamento == filtroTemp);
+    var lista = filtrados.ToList();
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/CatalogoIndex.css" />
+</head>
+
+<div class="container py-5">
+
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <h1 class="page-title mb-0">Catálogo de <span>Gatos</span> 🐾</h1>
+    </div>
+
+    <!-- Filtros -->
+    <form method="get" class="filter-bar">
+        <div class="filter-group">
+            <label>Raza</label>
+            <select name="raza">
+                <option value="">Todas las razas</option>
+                @foreach (var r in razas)
+                {
+                    <option value="@r" selected="@(filtroRaza == r ? "selected" : null)">@r</option>
+                }
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Pelaje</label>
+            <select name="pelaje">
+                <option value="">Todos los pelajes</option>
+                @foreach (var p in pelajes)
+                {
+                    <option value="@p" selected="@(filtroPelaje == p ? "selected" : null)">@p</option>
+                }
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Temperamento</label>
+            <select name="temperamento">
+                <option value="">Todos</option>
+                @foreach (var t in temperamentos)
+                {
+                    <option value="@t" selected="@(filtroTemp == t ? "selected" : null)">@t</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn-filter">Filtrar</button>
+        @if (!string.IsNullOrEmpty(filtroRaza) || !string.IsNullOrEmpty(filtroPelaje) || !string.IsNullOrEmpty(filtroTemp))
+        {
+            <a href="/Catalogo" class="btn-clear">✕ Limpiar</a>
+        }
+    </form>
+
+    <p class="count-label">
+        Mostrando <strong>@lista.Count</strong> gato@(lista.Count == 1 ? "" : "s")
+    </p>
+
+    @if (lista.Count == 0)
     {
-        <span> | </span>
-        <a asp-action="Index" asp-route-genero="@gen">@gen</a>
+        <div class="empty-state">
+            <span class="emoji">🐱</span>
+            <p>No encontramos gatos con esos filtros.</p>
+            <a href="/Catalogo" class="btn-filter" style="text-decoration:none;display:inline-block;border-radius:8px;">Ver todos</a>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var item in lista)
+            {
+                <div class="col-sm-6 col-lg-4">
+                    <a asp-controller="Catalogo" asp-action="Detail" asp-route-id="@item.Id" class="cat-card">
+                        <div class="cat-emoji-wrap">🐱</div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">@item.Nombre</h3>
+                            <div class="cat-tags">
+                                <span class="cat-tag">@item.Raza</span>
+                                <span class="cat-tag">@item.Pelaje</span>
+                                <span class="cat-tag">@item.Temperamento</span>
+                            </div>
+                            <p class="cat-desc">@item.Descripcion</p>
+                            <span class="cat-link">Ver perfil →</span>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
     }
 </div>
- 
-<hr />
- 
-<!-- Lista de Items -->
-<ul>
-    @foreach (var item in Model)
-    {
-        <li>
-            <a asp-action="Detail" asp-route-id="@item.Id">@item.Titulo</a>
-            &mdash; @item.Genero &diams; @item.Ano
-        </li>
-    }
-</ul>
- 
-<hr />
-<a asp-action="Agregar">+ Agregar videojuego</a>

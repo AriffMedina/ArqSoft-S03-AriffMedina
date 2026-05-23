@@ -4,29 +4,34 @@
  
 <form asp-action="Agregar" method="post">
     @* Centrado vertical con Flexbox *@
-    <div style="display: flex; align-items: center; margin-bottom: 15px;">
-        <label style="width: 120px;">Título</label>
-        <input asp-for="Titulo" class="form-control" style="flex: 1;" />
+    <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" name="Nombre" class="form-control" required />
     </div>
- 
-    <div style="display: flex; align-items: center; margin-bottom: 15px;">
-        <label style="width: 120px;">Género</label>
-        <input asp-for="Genero" class="form-control" style="flex: 1;" />
+    <div class="mb-3">
+        <label class="form-label">Raza</label>
+        <input type="text" name="Raza" class="form-control" required />
     </div>
- 
-    <div style="display: flex; align-items: center; margin-bottom: 15px;">
-        <label style="width: 120px;">Consola</label>
-        <input asp-for="Consola" class="form-control" style="flex: 1;" />
+    <div class="mb-3">
+        <label class="form-label">Pelaje</label>
+        <select name="Pelaje" class="form-control">
+            <option>Corto</option>
+            <option>Largo</option>
+            <option>Sin pelo</option>
+        </select>
     </div>
- 
-    <div style="display: flex; align-items: center; margin-bottom: 15px;">
-        <label style="width: 120px;">Año</label>
-        <input asp-for="Ano" type="number" class="form-control" style="flex: 1;" />
+    <div class="mb-3">
+        <label class="form-label">Temperamento</label>
+        <select name="Temperamento" class="form-control">
+            <option>Juguetón</option>
+            <option>Tranquilo</option>
+            <option>Independiente</option>
+            <option>Cariñoso</option>
+        </select>
     </div>
- 
-    <div style="display: flex; align-items: flex-start; margin-bottom: 15px;">
-        <label style="width: 120px; margin-top: 8px;">Descripción</label>
-        <textarea asp-for="Descripcion" class="form-control" style="flex: 1;"></textarea>
+    <div class="mb-3">
+        <label class="form-label">Descripción</label>
+        <textarea name="Descripcion" class="form-control" rows="3"></textarea>
     </div>
  
     <div style="margin-left: 120px;">

@@ -1,10 +1,56 @@
 [
   {
     "Id": 1,
-    "Titulo": "Devil May Cry",
-    "Genero": "Hack and Slash",
-    "Consola": "PlayStation 2",
-    "Ano": 2001,
-    "Descripcion": "Dante, cazador de demonios, enfrenta a Mundus."
+    "Nombre": "Luna",
+    "Raza": "Siamés",
+    "Pelaje": "Corto",
+    "Temperamento": "Juguetón",
+    "Descripcion": "Luna es curiosa, vocal y adora la compañía humana. Perfecta para familias activas.",
+    "ImagenUrl": ""
+  },
+  {
+    "Id": 2,
+    "Nombre": "Mochi",
+    "Raza": "Persa",
+    "Pelaje": "Largo",
+    "Temperamento": "Tranquilo",
+    "Descripcion": "Mochi es el rey de la calma. Le encanta dormir al sol y recibir caricias.",
+    "ImagenUrl": ""
+  },
+  {
+    "Id": 3,
+    "Nombre": "Sombra",
+    "Raza": "Bombay",
+    "Pelaje": "Corto",
+    "Temperamento": "Independiente",
+    "Descripcion": "Todo negro y misterioso. Sombra observa todo desde su rincón favorito.",
+    "ImagenUrl": ""
+  },
+  {
+    "Id": 4,
+    "Nombre": "Nieve",
+    "Raza": "Angora",
+    "Pelaje": "Largo",
+    "Temperamento": "Juguetón",
+    "Descripcion": "Blanca como la nieve y enérgica. No para quieta ni un momento.",
+    "ImagenUrl": ""
+  },
+  {
+    "Id": 5,
+    "Nombre": "Sphinx",
+    "Raza": "Sphynx",
+    "Pelaje": "Sin pelo",
+    "Temperamento": "Cariñoso",
+    "Descripcion": "Sin pelo pero lleno de amor. Sphinx busca calor humano constantemente.",
+    "ImagenUrl": ""
+  },
+  {
+    "Id": 6,
+    "Nombre": "Naranja",
+    "Raza": "Maine Coon",
+    "Pelaje": "Largo",
+    "Temperamento": "Tranquilo",
+    "Descripcion": "Grande, peludo y gentil. El gigante gentil del catálogo.",
+    "ImagenUrl": ""
   }
 ]
