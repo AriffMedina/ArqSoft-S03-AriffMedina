@@ -19,7 +19,7 @@
     @foreach (var item in Model)
     {
         <li>
-            <a asp-action="Detalle" asp-route-id="@item.Id">@item.Titulo</a>
+            <a asp-action="Detail" asp-route-id="@item.Id">@item.Titulo</a>
             &mdash; @item.Genero &diams; @item.Ano
         </li>
     }

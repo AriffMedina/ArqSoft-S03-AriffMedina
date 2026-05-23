@@ -22,6 +22,8 @@ namespace CatalogoApp.Application.Services
             return _repo.ObtenerTodos();
         }
 
+        public Item? GetById(int id) =>
+    _repo.ObtenerTodos().FirstOrDefault(i => i.Id == id);
         public Item? ObtenerPorId(int id)
         {
             return _repo.ObtenerPorId(id);

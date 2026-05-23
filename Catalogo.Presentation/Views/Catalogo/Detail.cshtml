@@ -1,0 +1,116 @@
+@using CatalogoApp.Domain.Models
+@model Item
+
+@{
+    ViewData["Title"] = Model.Titulo;
+    var reviews       = ViewBag.Reviews  as List<Review> ?? new();
+    var avgRating     = (double)(ViewBag.AverageRating ?? 0.0);
+    var isLoggedIn    = Context.Session.GetString("UsuarioNombre") != null;
+}
+
+<div class="row mt-4">
+    <div class="col-md-8 offset-md-2">
+
+        
+        <h2>@Model.Titulo</h2>
+        <p class="text-muted">@Model.Genero &bull; @Model.Ano</p>
+        @* Info del item *@
+        <h2>@Model.Titulo</h2>
+        <p><strong>Género:</strong> @Model.Genero</p>
+        <p><strong>Consola:</strong> @Model.Consola</p>
+        <p><strong>Año:</strong> @Model.Ano</p>
+        <p><strong>Descripción:</strong> @Model.Descripcion</p>
+        
+        <div class="mb-4">
+            @if (reviews.Count > 0)
+            {
+                <span class="fs-5 fw-semibold">
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        <span style="color: @(i <= Math.Round(avgRating) ? "#f5a623" : "#ccc")">★</span>
+                    }
+                    @avgRating / 5
+                </span>
+                <span class="text-muted ms-2">(@reviews.Count review@(reviews.Count == 1 ? "" : "s"))</span>
+            }
+            else
+            {
+                <span class="text-muted">No reviews yet. Be the first!</span>
+            }
+        </div>
+
+        <hr />
+
+        
+        @if (isLoggedIn)
+        {
+            @if (TempData["ReviewError"] != null)
+            {
+                <div class="alert alert-danger">@TempData["ReviewError"]</div>
+            }
+
+            <h5>Leave a Review</h5>
+            <form method="post" asp-controller="Review" asp-action="Add" class="mb-4">
+                <input type="hidden" name="itemId" value="@Model.Id" />
+
+                <div class="mb-3">
+                    <label class="form-label">Rating</label>
+                    <div class="d-flex gap-2">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio"
+                                       name="rating" id="star@i" value="@i" required
+                                       @(i == 5 ? "checked" : "") />
+                                <label class="form-check-label" for="star@i">@i ★</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Comment</label>
+                    <textarea name="comment" class="form-control" rows="3"
+                              placeholder="Share your thoughts..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Post Review</button>
+            </form>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                <a asp-controller="Auth" asp-action="Login">Log in</a> to leave a review.
+            </div>
+        }
+
+        
+        <h5>Reviews</h5>
+        @if (reviews.Count == 0)
+        {
+            <p class="text-muted">No reviews yet.</p>
+        }
+        else
+        {
+            @foreach (var review in reviews)
+            {
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <strong>@review.UserName</strong>
+                            <span>
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <span style="color: @(i <= review.Rating ? "#f5a623" : "#ccc")">★</span>
+                                }
+                            </span>
+                        </div>
+                        <p class="mb-1">@review.Comment</p>
+                        <small class="text-muted">@review.CreatedAt.ToString("MMM dd, yyyy")</small>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</div>

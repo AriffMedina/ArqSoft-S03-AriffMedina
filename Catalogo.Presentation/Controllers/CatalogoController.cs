@@ -7,11 +7,15 @@ namespace CatalogoApp.Presentation.Controllers
     public class CatalogoController : Controller
     {
         private readonly ItemService _service;
+        private readonly ReviewService _reviewService;
+        private readonly ItemService _itemService;
 
         // El servicio llega por inyección de dependencias
-        public CatalogoController(ItemService service)
+        public CatalogoController(ItemService service, ReviewService reviewService, ItemService itemService )
         {
             _service = service;
+            _itemService = itemService;
+            _reviewService = reviewService;
         }
 
         // Lista con filtro opcional por género
@@ -53,6 +57,18 @@ namespace CatalogoApp.Presentation.Controllers
         {
             _service.Eliminar(id);
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Detail(int id)
+        {
+            var item = _itemService.GetById(id);
+            if (item == null) return NotFound();
+
+            ViewBag.Reviews = _reviewService.GetReviewsForItem(id);
+            ViewBag.AverageRating = _reviewService.GetAverageRating(id);
+
+            return View(item);
         }
     }
 }

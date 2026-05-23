@@ -30,6 +30,8 @@ namespace CatalogoApp.Infrastructure.Repositories
             var json = File.ReadAllText(_filePath);
             return JsonSerializer.Deserialize<List<Usuario>>(json)
                    ?? new List<Usuario>();
+
+
         }
 
         public Usuario? ObtenerPorEmail(string email)

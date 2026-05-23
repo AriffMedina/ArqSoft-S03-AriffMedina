@@ -1,0 +1,9 @@
+[
+  {
+    "Id": 1,
+    "NombreUsuario": "asd",
+    "Email": "asd@gmail.com",
+    "PasswordHash": "$2a$11$QBT/CnRaOIGaUJ2eDNoiWetgh2nJ9CtgR5tKIhHo5tFjXBBaRrSPG",
+    "FechaRegistro": "2026-05-22T23:58:26.5133379Z"
+  }
+]

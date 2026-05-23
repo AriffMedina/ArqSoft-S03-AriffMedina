@@ -20,6 +20,15 @@ new JsonItemRepository(jsonPath)
 
 // Registrar el servicio de Application
 
+var jsonPathReviews = Path.Combine(
+    builder.Environment.ContentRootPath, "Data", "reviews.json");
+
+builder.Services.AddSingleton<IReviewRepository>(
+    new JsonReviewRepository(jsonPathReviews));
+
+builder.Services.AddScoped<ReviewService>();
+
+
 builder.Services.AddScoped<ItemService>();
 
 var jsonPathUsuarios = Path.Combine(

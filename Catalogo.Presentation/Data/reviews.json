@@ -1,0 +1,11 @@
+[
+  {
+    "Id": 1,
+    "ItemId": 1,
+    "UserId": 1,
+    "UserName": "asd",
+    "Comment": "me gusto, est\u00E1 padre",
+    "Rating": 3,
+    "CreatedAt": "2026-05-22T23:58:49.6925465Z"
+  }
+]
